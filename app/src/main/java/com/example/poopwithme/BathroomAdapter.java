@@ -35,7 +35,7 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
     @Override
     public void onBindViewHolder(BathroomViewHolder holder, int position) {
         FirebaseUtils.BathroomLocation bathroom = mBathrooms.get(adapterPositionToArrayIndex(position));
-        holder.bind(adapterPositionToArrayIndex(position));
+        holder.bind(adapterPositionToArrayIndex(position), bathroom);
     }
 
     private int adapterPositionToArrayIndex(int adapterPosition) {
@@ -96,8 +96,8 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
             });
         }
 
-        void bind(int i) {
-            mBathroomTextView.setText("Bathroom "+i);
+        void bind(int i, FirebaseUtils.BathroomLocation l) {
+            mBathroomTextView.setText("Bathroom "+i+ " (Stars: " + l.avg_review + ")");
         }
     }
 

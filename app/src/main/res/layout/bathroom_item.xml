@@ -24,23 +24,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/bathroom_review_button"
-                android:padding="12dp"
-                android:layout_gravity="right"
-                android:textSize="18sp"
-                android:text="@string/button_review_text" />
+                android:background="@drawable/btn_rev"
+                android:layout_margin="10dp"
+                android:layout_gravity="center_vertical" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/bathroom_dir_button"
-                android:layout_gravity="right"
-                android:textSize="18sp"
-                android:layout_marginLeft="16dp"
-                android:padding="12dp"
-                android:text="@string/button_direction_text" />
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/btn_dir" />
         </LinearLayout>
     </LinearLayout>
 
