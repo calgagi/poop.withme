@@ -10,18 +10,20 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.content.ContentValues.TAG;
 
 public class FirebaseUtils {
-    class Bathrooms {
-        public HashMap bathrooms;
-    }
-    class Post {
-        public int starCount;
-        public HashMap reviews;
-    }
+//    class Bathrooms {
+//        public HashMap bathrooms;
+//    }
+//    class Post {
+//        public int starCount;
+//        public HashMap reviews;
+//    }
 //    private void onStarClicked(DatabaseReference postRef) {
 //        postRef.runTransaction(new Transaction.Handler() {
 //            @Override
@@ -59,10 +61,40 @@ public class FirebaseUtils {
 //            }
 //        });
 //    }
+    public static class BathroomLocation implements Serializable {
+        public double longitude;
+        public double latitude;
+        public double avg_review;
+        public int num_reviews;
+    }
+    public static class Bathrooms implements Serializable {
+        ArrayList<BathroomLocation> Bathrooms;
+//        public BathroomLocation[] Bathrooms;
+    }
     public static void change () {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello, World!");
+//        mDatabase.child("users").child(userId).child("username").setValue(name);
+        DatabaseReference myRef = database.getReference("");
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                Bathrooms list = dataSnapshot.getValue(Bathrooms.class);
+//                Log.d("latLong ", " "+ list.Bathrooms.get("1"));
+                Log.d("latLong ", " "+ list.Bathrooms.get(1).avg_review);
+                // ...
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+
+        myRef.addListenerForSingleValueEvent(postListener);
     }
 
 }

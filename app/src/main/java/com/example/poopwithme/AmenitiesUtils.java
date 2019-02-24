@@ -999,7 +999,7 @@ public class AmenitiesUtils {
         double[][] latLongs =new double[][]{{-105.255682,40.0253808},
                 {-105.2337308,40.0313801},
                 {-105.2288559,40.0720445}};
-//        Log.d("latLong ", " "+ Arrays.deepToString(latLongs));
+        Log.d("latLong ", " "+ Arrays.deepToString(latLongs));
         return latLongs[i];
     }
 }

@@ -1,18 +1,16 @@
 {
   "Bathrooms" : {
-    "Bathroom_1" : {
-      "ID" : "gjkeesf",
-      "Review_1" : {
-        "Description" : "Quality",
-        "ID" : "fjnfb",
-        "Stars" : 5
-      },
-      "Review_2" : {
-        "Description" : "Bad",
-        "ID" : "gkdv",
-        "Stars" : 0
-      },
-      "Score" : 2.5
+    "1" : {
+      "latitude": -105.2771518,
+      "longitude": 40.0156743,
+      "avg_review": 2.5,
+      "num_reviews" : 20
+    },
+    "2" : {
+      "latitude": -105.2771518,
+      "longitude": 40.0156743,
+      "avg_review": 2.5,
+      "num_reviews" : 20
     }
   }
 }
