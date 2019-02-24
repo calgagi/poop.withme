@@ -18,8 +18,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.FirebaseApp;
+import com.stepstone.apprating.AppRatingDialog;
+import com.stepstone.apprating.listener.RatingDialogListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import static com.example.poopwithme.AmenitiesUtils.getLocations;
 
 /* This is the main activity for our app */
@@ -31,7 +35,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private BathroomAdapter mainBathroomAdapter;
     private FirebaseUtils firebaseUtils;
     private ArrayList<LatLng> latlngs = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
