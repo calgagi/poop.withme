@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">poopwithme</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">poop.withme</string>
+    <string name="title_activity">poop.withme</string>
 </resources>
