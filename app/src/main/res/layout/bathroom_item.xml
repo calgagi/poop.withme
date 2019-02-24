@@ -1,14 +1,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="16dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/bathroom_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:textSize="22dp"
-        android:text="This is a bathroom" />
+        <TextView
+            android:id="@+id/bathroom_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:textSize="22dp"
+            android:padding="8dp"
+            android:text="This is a bathroom" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bathroom_review_button"
+                android:padding="12dp"
+                android:layout_gravity="right"
+                android:textSize="18sp"
+                android:text="@string/button_review_text" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bathroom_dir_button"
+                android:layout_gravity="right"
+                android:textSize="18sp"
+                android:layout_marginLeft="16dp"
+                android:padding="12dp"
+                android:text="@string/button_direction_text" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
