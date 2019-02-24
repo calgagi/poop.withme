@@ -23,11 +23,12 @@ import com.stepstone.apprating.listener.RatingDialogListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.example.poopwithme.AmenitiesUtils.getLocations;
 
 /* This is the main activity for our app */
-public class MainActivity extends FragmentActivity implements OnMapReadyCallback, BathroomAdapter.OnBathroomClickedListener{
+public class MainActivity extends FragmentActivity implements OnMapReadyCallback, BathroomAdapter.OnBathroomClickedListener, FirebaseUtils.OnDatabaseFetchDone {
     private GoogleMap mMap;
     private MarkerOptions options = new MarkerOptions();
 
@@ -36,20 +37,41 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private FirebaseUtils firebaseUtils;
     private ArrayList<LatLng> latlngs = new ArrayList<>();
 
+    public void updateMap(ArrayList<FirebaseUtils.BathroomLocation> l) {
+        if(l != null) {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (int i = 0; i < l.size(); i++) {
+                if(l.get(i) != null) {
+                    System.out.println(l.get(i).latitude + " " + l.get(i).longitude);
+                    LatLng bathroom = new LatLng(l.get(i).longitude, l.get(i).latitude);
+                    builder.include(bathroom);
+                    mMap.addMarker(new MarkerOptions().position(bathroom).title("Bathroom " + i));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(bathroom));
+                }
+            }
+            CameraUpdate cu = CameraUpdateFactory.zoomTo((float) 12);
+            mMap.animateCamera(cu);
+        }
+    }
+
+    public void updateBathrooms(ArrayList<FirebaseUtils.BathroomLocation> l){
+        mainBathroomAdapter.updateBathrooms(l);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        firebaseUtils = new FirebaseUtils();
+        firebaseUtils = new FirebaseUtils(this);
         FirebaseApp.initializeApp(this);
-        firebaseUtils.change();
 
         mainBathroomRecyclerView = findViewById(R.id.bathroom_rv);
-        mainBathroomAdapter = new BathroomAdapter(this, firebaseUtils.bathrooms);
-
+        mainBathroomAdapter = new BathroomAdapter(this);
         mainBathroomRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mainBathroomRecyclerView.setHasFixedSize(true);
         mainBathroomRecyclerView.setAdapter(mainBathroomAdapter);
+        firebaseUtils.change();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
@@ -61,8 +83,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onBathroomDirectionClicked(double lattitude, double longitude) {
-        Uri IntentUri = Uri.parse("geo:" + Double.toString(lattitude) + "," + Double.toString(longitude));
+    public void onBathroomDirectionClicked(double latitude, double longitude) {
+        Uri IntentUri = Uri.parse("https://www.google.com/maps/search/?api=1&query=" + Double.toString(longitude) + "," + Double.toString(latitude));
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, IntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
@@ -74,16 +96,5 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (int i= 0; i < 3; i++) {
-            LatLng bathroom = new LatLng(getLocations(i)[1], getLocations(i)[0]);
-            builder.include(bathroom);
-            mMap.addMarker(new MarkerOptions().position(bathroom).title("Bathroom "+i));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(bathroom));
-        }
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 5,5,0));
-//        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(builder.build(), 5,5,0);
-        CameraUpdate cu = CameraUpdateFactory.zoomTo((float)12);
-        mMap.animateCamera(cu);
     }
 }
