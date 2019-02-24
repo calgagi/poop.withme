@@ -979,25 +979,25 @@ public class AmenitiesUtils {
         public row[] data;
     }
 //     throws FileNotFoundException
-    public static Object getBathrooms() {
-        Gson gson = new Gson();
-        String path = "com/example/poopwithme/data/boulderBathrooms.json";
-        Log.d("results ", " "+(new File(".").getAbsolutePath()));
-        Object json;
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-            Log.d("results ", "  ----TRY");
-            json = gson.fromJson(bufferedReader, Object.class);
-            Log.d("results ", "  ----TRY2");
-        }
-        catch (FileNotFoundException ex) {// insert code to run when exception occurs}
-            json = null;
-            Log.d("results ", "  ----CATCH");
-        }
-
-        Log.d("results ", "  -----"+json);
-        return json;
-    }
+//    public static Object getBathrooms() {
+//        Gson gson = new Gson();
+////        String path = "com/example/poopwithme/data/boulderBathrooms.json";
+////        Log.d("results ", " "+(new File(".").getAbsolutePath()));
+//        Object json;
+////        try {
+////            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+////            Log.d("results ", "  ----TRY");
+////            json = gson.fromJson(bufferedReader, Object.class);
+////            Log.d("results ", "  ----TRY2");
+////        }
+////        catch (FileNotFoundException ex) {// insert code to run when exception occurs}
+////            json = null;
+////            Log.d("results ", "  ----CATCH");
+////        }
+//
+//        Log.d("results ", "  -----"+json);
+//        return json;
+//    }
     public static double[] getLocations(int i) {
         double[][] latLongs =new double[][]{{-105.255682,40.0253808},
                 {-105.2337308,40.0313801},

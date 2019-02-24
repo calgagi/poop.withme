@@ -12,8 +12,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import static com.example.poopwithme.AmenitiesUtils.getBathrooms;
+//import static com.example.poopwithme.AmenitiesUtils.getBathrooms;
 import static com.example.poopwithme.AmenitiesUtils.getLocations;
+import static com.example.poopwithme.FirebaseUtils.change;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -27,7 +28,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        getBathrooms();
+//        getBathrooms();
+        change();
         getLocations(0);
     }
 
