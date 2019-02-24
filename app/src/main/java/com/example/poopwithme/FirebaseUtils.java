@@ -29,7 +29,7 @@ public class FirebaseUtils {
     }
 
     public static class Bathrooms implements Serializable {
-        ArrayList<BathroomLocation> bathroomsList;
+        ArrayList<BathroomLocation> Bathrooms;
     }
 
     public FirebaseUtils(){
@@ -53,8 +53,8 @@ public class FirebaseUtils {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 Bathrooms list = dataSnapshot.getValue(Bathrooms.class);
-                Log.d("latLong ", " "+ list.bathroomsList.get(1).avg_review);
-                bathrooms = list.bathroomsList;
+                Log.d("latLong ", " "+ list.Bathrooms.get(1).avg_review);
+                bathrooms = list.Bathrooms;
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
