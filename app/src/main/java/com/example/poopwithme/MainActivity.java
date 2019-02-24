@@ -3,48 +3,56 @@ package com.example.poopwithme;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+
+import com.example.poopwithme.FirebaseUtils;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.FirebaseApp;
 
+import java.util.ArrayList;
 import static com.example.poopwithme.AmenitiesUtils.getLocations;
-import static com.example.poopwithme.FirebaseUtils.change;
 
 /* This is the main activity for our app */
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback, BathroomAdapter.OnBathroomClickedListener{
     private GoogleMap mMap;
+    private MarkerOptions options = new MarkerOptions();
 
     private RecyclerView mainBathroomRecyclerView;
     private BathroomAdapter mainBathroomAdapter;
+    private FirebaseUtils firebaseUtils;
+    private ArrayList<LatLng> latlngs = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        firebaseUtils = new FirebaseUtils();
+        FirebaseApp.initializeApp(this);
+        firebaseUtils.change();
+
         mainBathroomRecyclerView = findViewById(R.id.bathroom_rv);
-        mainBathroomAdapter = new BathroomAdapter(this);
+        mainBathroomAdapter = new BathroomAdapter(this, firebaseUtils.bathrooms);
 
         mainBathroomRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mainBathroomRecyclerView.setHasFixedSize(true);
         mainBathroomRecyclerView.setAdapter(mainBathroomAdapter);
-        FirebaseApp.initializeApp(this);
-        change();
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
     @Override
-    public void onBathroomReviewClicked(String position) {
+    public void onBathroomReviewClicked(FirebaseUtils.BathroomLocation temp) {
         Intent bathroomReviewActivityIntent = new Intent(this, BathroomReviewActivity.class);
         startActivity(bathroomReviewActivityIntent);
     }

@@ -8,18 +8,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /* This class manages the RecyclerView's items. It also binds
 
  */
 
 public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.BathroomViewHolder> {
-    private ArrayList<String> mBathrooms;
+    private ArrayList<FirebaseUtils.BathroomLocation> mBathrooms;
     private OnBathroomClickedListener mBathroomClickedListener;
 
 
     public interface OnBathroomClickedListener {
-        void onBathroomReviewClicked(String pos);
+        void onBathroomReviewClicked(FirebaseUtils.BathroomLocation temp);
         void onBathroomDirectionClicked(double lattitude, double longitude);
     }
 
@@ -34,7 +35,7 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
 
     @Override
     public void onBindViewHolder(BathroomViewHolder holder, int position) {
-        String bathroom = mBathrooms.get(adapterPositionToArrayIndex(position));
+        FirebaseUtils.BathroomLocation bathroom = mBathrooms.get(adapterPositionToArrayIndex(position));
         holder.bind(bathroom);
     }
 
@@ -44,17 +45,13 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
 
 
 
-
-    public BathroomAdapter(OnBathroomClickedListener clickedListener) {
-        mBathrooms = new ArrayList<String>();
-        for(int i = 0; i < 20; i++){
-            mBathrooms.add(Integer.toString(i));
-        }
+    public BathroomAdapter(OnBathroomClickedListener clickedListener, ArrayList<FirebaseUtils.BathroomLocation> list) {
+        mBathrooms = list;
         mBathroomClickedListener = clickedListener;
     }
 
     /* CHANGE THIS TO SUPPORT API REQUEST */
-    public void addBathroom(String bathroom) {
+    public void addBathroom(FirebaseUtils.BathroomLocation bathroom) {
         mBathrooms.add(bathroom);
         notifyDataSetChanged();
     }
@@ -80,21 +77,21 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
             reviewButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String text = mBathrooms.get(adapterPositionToArrayIndex(getAdapterPosition()));
-                    mBathroomClickedListener.onBathroomReviewClicked(text);
+                    FirebaseUtils.BathroomLocation temp = mBathrooms.get(adapterPositionToArrayIndex(getAdapterPosition()));
+                    mBathroomClickedListener.onBathroomReviewClicked(temp);
                 }
             });
             directionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String text = mBathrooms.get(adapterPositionToArrayIndex(getAdapterPosition()));
-                    mBathroomClickedListener.onBathroomDirectionClicked(44.564568, -123.262047);
+                    FirebaseUtils.BathroomLocation temp = mBathrooms.get(adapterPositionToArrayIndex(getAdapterPosition()));
+                    mBathroomClickedListener.onBathroomDirectionClicked(temp.latitude, temp.longitude);
                 }
             });
         }
 
-        void bind(String text) {
-            mBathroomTextView.setText(text);
+        void bind(FirebaseUtils.BathroomLocation bathroomLocation) {
+            mBathroomTextView.setText(Double.toString(bathroomLocation.latitude));
         }
     }
 
