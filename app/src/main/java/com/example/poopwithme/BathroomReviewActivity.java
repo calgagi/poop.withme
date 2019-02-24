@@ -56,18 +56,6 @@ public class BathroomReviewActivity extends AppCompatActivity {
         popDialog.setPositiveButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//                        int timeout = 4000; // make the activity visible for 4 seconds
-//
-//                        Timer timer = new Timer();
-//                        timer.schedule(new TimerTask() {
-//
-//                            @Override
-//                            public void run() {
-//                                finish();
-//                                Intent homepage = new Intent(BathroomReviewActivity.this, MainActivity.class);
-//                                startActivity(homepage);
-//                            }
-//                        }, timeout);
                         Intent intent = new Intent(BathroomReviewActivity.this, MainActivity.class);
                         startActivity(intent);
                         dialog.dismiss();
@@ -79,18 +67,6 @@ public class BathroomReviewActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-//                                int timeout = 4000; // make the activity visible for 4 seconds
-//
-//                                Timer timer = new Timer();
-//                                timer.schedule(new TimerTask() {
-//
-//                                    @Override
-//                                    public void run() {
-//                                        finish();
-//                                        Intent homepage = new Intent(BathroomReviewActivity.this, MainActivity.class);
-//                                        startActivity(homepage);
-//                                    }
-//                                }, timeout);
                                 Intent intent = new Intent(BathroomReviewActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 dialog.cancel();
@@ -99,26 +75,5 @@ public class BathroomReviewActivity extends AppCompatActivity {
 
         popDialog.create();
         popDialog.show();
-
-
-
-//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//        builder.setCancelable(true);
-//        builder.setTitle("Rate This Bathroom");
-//        builder.setMessage("Message");
-//        builder.setPositiveButton("Submit",
-//                new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                    }
-//                });
-//        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//            }
-//        });
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
     }
 }
