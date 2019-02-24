@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.content.ContentValues.TAG;
-import static com.example.poopwithme.AmenitiesUtils.getLocations;
 
 public class FirebaseUtils {
 

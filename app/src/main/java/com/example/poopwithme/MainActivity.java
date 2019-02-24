@@ -22,7 +22,6 @@ import com.google.firebase.FirebaseApp;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.poopwithme.AmenitiesUtils.getLocations;
 
 /* This is the main activity for our app */
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback, BathroomAdapter.OnBathroomClickedListener, FirebaseUtils.OnDatabaseFetchDone {
