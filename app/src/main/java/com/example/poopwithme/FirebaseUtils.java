@@ -57,7 +57,7 @@ public class FirebaseUtils {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("");
 
-        ValueEventListener postListener = new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
@@ -73,9 +73,8 @@ public class FirebaseUtils {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
                 // ...
             }
-        };
+        });
 
-        myRef.addListenerForSingleValueEvent(postListener);
     }
 
 }

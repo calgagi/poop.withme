@@ -40,13 +40,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             for (int i = 0; i < l.size(); i++) {
                 if(l.get(i) != null) {
                     System.out.println(l.get(i).latitude + " " + l.get(i).longitude);
-                    LatLng bathroom = new LatLng(l.get(i).latitude, l.get(i).longitude);
+                    LatLng bathroom = new LatLng(l.get(i).longitude, l.get(i).latitude);
                     builder.include(bathroom);
                     mMap.addMarker(new MarkerOptions().position(bathroom).title("Bathroom " + i));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(bathroom));
                 }
             }
-            CameraUpdate cu = CameraUpdateFactory.zoomTo((float) 1);
+            CameraUpdate cu = CameraUpdateFactory.zoomTo((float) 12);
             mMap.animateCamera(cu);
         }
     }
@@ -80,8 +80,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onBathroomDirectionClicked(double lattitude, double longitude) {
-        Uri IntentUri = Uri.parse("geo:" + Double.toString(lattitude) + "," + Double.toString(longitude));
+    public void onBathroomDirectionClicked(double latitude, double longitude) {
+        Uri IntentUri = Uri.parse("https://www.google.com/maps/search/?api=1&query=" + Double.toString(longitude) + "," + Double.toString(latitude));
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, IntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
