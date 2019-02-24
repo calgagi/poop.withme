@@ -4,6 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -11,8 +15,14 @@ import java.util.ArrayList;
 
  */
 
-public class BathroomAdapter extends RecyclerView.Adapter<BathroomViewHolder> {
+public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.BathroomViewHolder> {
     private ArrayList<String> mBathrooms;
+    private OnBathroomClickedListener mBathroomClickedListener;
+
+
+    public interface OnBathroomClickedListener {
+        void onBathroomClicked(String pos);
+    }
 
     @Override
     public BathroomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -22,14 +32,26 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomViewHolder> {
         return viewHolder;
     }
 
+
     @Override
     public void onBindViewHolder(BathroomViewHolder holder, int position) {
-        String todo = mBathrooms.get(mBathrooms.size() - position - 1);
-        holder.bind(todo);
+        String bathroom = mBathrooms.get(adapterPositionToArrayIndex(position));
+        holder.bind(bathroom);
     }
 
-    public BathroomAdapter() {
+    private int adapterPositionToArrayIndex(int adapterPosition) {
+        return mBathrooms.size() - adapterPosition - 1;
+    }
+
+
+
+
+    public BathroomAdapter(OnBathroomClickedListener clickedListener) {
         mBathrooms = new ArrayList<String>();
+        for(int i = 0; i < 20; i++){
+            mBathrooms.add(Integer.toString(i));
+        }
+        mBathroomClickedListener = clickedListener;
     }
 
     /* CHANGE THIS TO SUPPORT API REQUEST */
@@ -41,6 +63,31 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomViewHolder> {
     @Override
     public int getItemCount() {
         return mBathrooms.size();
+    }
+
+
+
+    public class BathroomViewHolder extends RecyclerView.ViewHolder {
+        private TextView mBathroomTextView;
+        private View mBathroomView;
+
+
+        public BathroomViewHolder(View itemView) {
+            super(itemView);
+            mBathroomTextView = itemView.findViewById(R.id.bathroom_textview);
+            mBathroomView = itemView;
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String text = mBathrooms.get(adapterPositionToArrayIndex(getAdapterPosition()));
+                    mBathroomClickedListener.onBathroomClicked(text);
+                }
+            });
+        }
+
+        void bind(String text) {
+            mBathroomTextView.setText(text);
+        }
     }
 
 }
