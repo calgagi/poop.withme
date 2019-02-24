@@ -1,0 +1,16 @@
+{
+  "Bathrooms" : {
+    "1" : {
+      "latitude": -105.2771518,
+      "longitude": 40.0156743,
+      "avg_review": 2.5,
+      "num_reviews" : 20
+    },
+    "2" : {
+      "latitude": -105.2771518,
+      "longitude": 40.0156743,
+      "avg_review": 2.5,
+      "num_reviews" : 20
+    }
+  }
+}

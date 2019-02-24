@@ -1,34 +1,70 @@
 package com.example.poopwithme;
-
-
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static android.content.ContentValues.TAG;
+
 public class FirebaseUtils {
-
-    List<BathroomLocation> dummy_data;
-
-    public FirebaseUtils(){
-        dummy_data = new ArrayList<BathroomLocation>();
-        BathroomLocation temp = new BathroomLocation();
-        temp.longitude = -34;
-        temp.lattitude = 150;
-        temp.avg_review = 2.5;
-        temp.num_reviews = 2;
-        dummy_data.add(temp);
-        BathroomLocation temp2 = new BathroomLocation();
-        temp2.longitude = -33;
-        temp2.lattitude = 151;
-        temp2.avg_review = 3.0;
-        temp2.num_reviews = 2;
-        dummy_data.add(temp2);
-    }
-
     public static class BathroomLocation implements Serializable {
         public double longitude;
-        public double lattitude;
+        public double latitude;
         public double avg_review;
         public int num_reviews;
     }
+
+    public static class Bathrooms implements Serializable {
+        ArrayList<BathroomLocation> bathroomsList;
+    }
+
+    public FirebaseUtils(){
+        bathrooms = new ArrayList<BathroomLocation>();
+        BathroomLocation temp = new BathroomLocation();
+        temp.latitude = 100;
+        temp.longitude = 50;
+        temp.num_reviews = 2;
+        temp.avg_review = 3;
+        bathrooms.add(temp);
+    }
+
+    public ArrayList<BathroomLocation> bathrooms;
+
+    public void change () {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("");
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                Bathrooms list = dataSnapshot.getValue(Bathrooms.class);
+                Log.d("latLong ", " "+ list.bathroomsList.get(1).avg_review);
+                bathrooms = list.bathroomsList;
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+
+        myRef.addListenerForSingleValueEvent(postListener);
+    }
+
 }

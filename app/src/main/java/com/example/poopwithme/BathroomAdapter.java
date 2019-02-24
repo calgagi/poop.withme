@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.BathroomViewHolder> {
-    private List<FirebaseUtils.BathroomLocation> mBathrooms;
+    private ArrayList<FirebaseUtils.BathroomLocation> mBathrooms;
     private OnBathroomClickedListener mBathroomClickedListener;
 
 
@@ -45,7 +45,7 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
 
 
 
-    public BathroomAdapter(OnBathroomClickedListener clickedListener, List<FirebaseUtils.BathroomLocation> list) {
+    public BathroomAdapter(OnBathroomClickedListener clickedListener, ArrayList<FirebaseUtils.BathroomLocation> list) {
         mBathrooms = list;
         mBathroomClickedListener = clickedListener;
     }
@@ -85,13 +85,13 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
                 @Override
                 public void onClick(View v) {
                     FirebaseUtils.BathroomLocation temp = mBathrooms.get(adapterPositionToArrayIndex(getAdapterPosition()));
-                    mBathroomClickedListener.onBathroomDirectionClicked(temp.lattitude, temp.longitude);
+                    mBathroomClickedListener.onBathroomDirectionClicked(temp.latitude, temp.longitude);
                 }
             });
         }
 
         void bind(FirebaseUtils.BathroomLocation bathroomLocation) {
-            mBathroomTextView.setText(Double.toString(bathroomLocation.lattitude));
+            mBathroomTextView.setText(Double.toString(bathroomLocation.latitude));
         }
     }
 
