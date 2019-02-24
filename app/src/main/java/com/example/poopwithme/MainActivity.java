@@ -1,5 +1,6 @@
 package com.example.poopwithme;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,8 +44,19 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onBathroomClicked(String position) {
-        System.out.println(position);
+    public void onBathroomReviewClicked(String position) {
+        Intent bathroomReviewActivityIntent = new Intent(this, BathroomReviewActivity.class);
+        startActivity(bathroomReviewActivityIntent);
+    }
+
+    @Override
+    public void onBathroomDirectionClicked(double lattitude, double longitude) {
+        Uri IntentUri = Uri.parse("geo:" + Double.toString(lattitude) + "," + Double.toString(longitude));
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, IntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
     }
 
 

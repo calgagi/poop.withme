@@ -4,10 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -21,7 +19,8 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
 
 
     public interface OnBathroomClickedListener {
-        void onBathroomClicked(String pos);
+        void onBathroomReviewClicked(String pos);
+        void onBathroomDirectionClicked(double lattitude, double longitude);
     }
 
     @Override
@@ -69,18 +68,27 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
 
     public class BathroomViewHolder extends RecyclerView.ViewHolder {
         private TextView mBathroomTextView;
-        private View mBathroomView;
+        private Button reviewButton;
+        private Button directionButton;
 
 
         public BathroomViewHolder(View itemView) {
             super(itemView);
             mBathroomTextView = itemView.findViewById(R.id.bathroom_textview);
-            mBathroomView = itemView;
-            itemView.setOnClickListener(new View.OnClickListener() {
+            reviewButton = itemView.findViewById(R.id.bathroom_review_button);
+            directionButton = itemView.findViewById(R.id.bathroom_dir_button);
+            reviewButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String text = mBathrooms.get(adapterPositionToArrayIndex(getAdapterPosition()));
-                    mBathroomClickedListener.onBathroomClicked(text);
+                    mBathroomClickedListener.onBathroomReviewClicked(text);
+                }
+            });
+            directionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String text = mBathrooms.get(adapterPositionToArrayIndex(getAdapterPosition()));
+                    mBathroomClickedListener.onBathroomDirectionClicked(44.564568, -123.262047);
                 }
             });
         }
