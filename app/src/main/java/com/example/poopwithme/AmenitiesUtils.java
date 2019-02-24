@@ -5,6 +5,7 @@ import android.net.Uri;
 import com.google.gson.Gson;
 import android.util.Log;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -980,12 +981,14 @@ public class AmenitiesUtils {
 //     throws FileNotFoundException
     public static Object getBathrooms() {
         Gson gson = new Gson();
-        String path = "C:/Users/grims/github/poop.withme/app/src/main/java/com/example/poopwithme/data/boulderBathrooms.json";
+        String path = "com/example/poopwithme/data/boulderBathrooms.json";
+        Log.d("results ", " "+(new File(".").getAbsolutePath()));
         Object json;
         try {
-            Log.d("results ", "  ----TRY");
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+            Log.d("results ", "  ----TRY");
             json = gson.fromJson(bufferedReader, Object.class);
+            Log.d("results ", "  ----TRY2");
         }
         catch (FileNotFoundException ex) {// insert code to run when exception occurs}
             json = null;
@@ -999,7 +1002,7 @@ public class AmenitiesUtils {
         double[][] latLongs =new double[][]{{-105.255682,40.0253808},
                 {-105.2337308,40.0313801},
                 {-105.2288559,40.0720445}};
-        Log.d("latLong ", " "+ Arrays.deepToString(latLongs));
+//        Log.d("latLong ", " "+ Arrays.deepToString(latLongs));
         return latLongs[i];
     }
 }
