@@ -38,4 +38,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'com.stepstone.apprating:app-rating:2.3.0'
 }

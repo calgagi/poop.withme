@@ -2,11 +2,15 @@ package com.example.poopwithme;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BathroomReviewActivity extends AppCompatActivity {
 
@@ -52,7 +56,20 @@ public class BathroomReviewActivity extends AppCompatActivity {
         popDialog.setPositiveButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//                        textView.setText(String.valueOf(rating.getProgress()));
+//                        int timeout = 4000; // make the activity visible for 4 seconds
+//
+//                        Timer timer = new Timer();
+//                        timer.schedule(new TimerTask() {
+//
+//                            @Override
+//                            public void run() {
+//                                finish();
+//                                Intent homepage = new Intent(BathroomReviewActivity.this, MainActivity.class);
+//                                startActivity(homepage);
+//                            }
+//                        }, timeout);
+                        Intent intent = new Intent(BathroomReviewActivity.this, MainActivity.class);
+                        startActivity(intent);
                         dialog.dismiss();
                     }
 
@@ -62,12 +79,29 @@ public class BathroomReviewActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+//                                int timeout = 4000; // make the activity visible for 4 seconds
+//
+//                                Timer timer = new Timer();
+//                                timer.schedule(new TimerTask() {
+//
+//                                    @Override
+//                                    public void run() {
+//                                        finish();
+//                                        Intent homepage = new Intent(BathroomReviewActivity.this, MainActivity.class);
+//                                        startActivity(homepage);
+//                                    }
+//                                }, timeout);
+                                Intent intent = new Intent(BathroomReviewActivity.this, MainActivity.class);
+                                startActivity(intent);
                                 dialog.cancel();
                             }
                         });
 
         popDialog.create();
         popDialog.show();
+
+
+
 //        AlertDialog.Builder builder = new AlertDialog.Builder(context);
 //        builder.setCancelable(true);
 //        builder.setTitle("Rate This Bathroom");

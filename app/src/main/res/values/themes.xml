@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <!--&lt;!&ndash; Here we can define custom style for text views like: title, comment, description of dialog-->
+             <!--This code can be uncommented when playing with examples. &ndash;&gt;-->
+
+        <!--&lt;!&ndash;<item name="appRatingDialogTitleStyle">@style/MyDialogTitleStyle</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="appRatingDialogDescriptionStyle">@style/MyDialogDescriptionStyle</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="appRatingDialogNoteDescriptionStyle">@style/MyDialogNoteDescriptionStyle</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="appRatingDialogCommentStyle">@style/MyDialogCommentStyle</item>&ndash;&gt;-->
+
+    <!--</style>-->
+
+</resources>
