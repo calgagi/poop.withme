@@ -30,8 +30,6 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomViewHolder> {
 
     public BathroomAdapter() {
         mBathrooms = new ArrayList<String>();
-        mBathrooms.add("hi");
-        mBathrooms.add("hi2");
     }
 
     /* CHANGE THIS TO SUPPORT API REQUEST */

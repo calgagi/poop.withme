@@ -18,7 +18,7 @@ public class BathroomViewHolder extends RecyclerView.ViewHolder {
         mBathroomViewHolder = itemView.findViewById(R.id.bathroom_textview);
     }
 
-    void bind(String todo) {
-        mBathroomViewHolder.setText(todo);
+    void bind(String text) {
+        mBathroomViewHolder.setText(text);
     }
 }
