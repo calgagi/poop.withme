@@ -75,5 +75,29 @@ public class FirebaseUtils {
         });
 
     }
+    public static void addReview (final float review) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("");
 
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                BathroomLocation test = dataSnapshot.child("Bathrooms").child("53").getValue(BathroomLocation.class);
+
+                Log.d("test", " "+ test.avg_review);
+
+                int newScore = (int)((test.avg_review * test.num_reviews + review))/ (test.num_reviews + 1);
+                myRef.child("Bathrooms").child("53").child("avg_review").setValue(newScore);
+                myRef.child("Bathrooms").child("53").child("num_reviews").setValue(test.num_reviews+1);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+
+    }
 }

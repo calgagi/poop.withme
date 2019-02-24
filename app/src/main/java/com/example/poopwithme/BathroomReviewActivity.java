@@ -12,6 +12,7 @@ public class BathroomReviewActivity extends AppCompatActivity {
 
     final Context context = this;
 
+    boolean test = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,10 @@ public class BathroomReviewActivity extends AppCompatActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 System.out.println("Rated val:"+v);
+                if (test == false){
+                    FirebaseUtils.addReview(v);
+                    test = true;
+                }
             }
         });
 
