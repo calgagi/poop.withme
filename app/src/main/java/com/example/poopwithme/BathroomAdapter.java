@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.BathroomViewHolder> {
-    private ArrayList<FirebaseUtils.BathroomLocation> mBathrooms;
+    private ArrayList<FirebaseUtils.BathroomLocation> mBathrooms = null;
     private OnBathroomClickedListener mBathroomClickedListener;
 
 
@@ -36,7 +36,7 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
     @Override
     public void onBindViewHolder(BathroomViewHolder holder, int position) {
         FirebaseUtils.BathroomLocation bathroom = mBathrooms.get(adapterPositionToArrayIndex(position));
-        holder.bind(bathroom);
+        holder.bind(adapterPositionToArrayIndex(position));
     }
 
     private int adapterPositionToArrayIndex(int adapterPosition) {
@@ -45,8 +45,7 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
 
 
 
-    public BathroomAdapter(OnBathroomClickedListener clickedListener, ArrayList<FirebaseUtils.BathroomLocation> list) {
-        mBathrooms = list;
+    public BathroomAdapter(OnBathroomClickedListener clickedListener) {
         mBathroomClickedListener = clickedListener;
     }
 
@@ -56,9 +55,17 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
         notifyDataSetChanged();
     }
 
+    public void updateBathrooms(ArrayList<FirebaseUtils.BathroomLocation> bathrooms){
+        mBathrooms = bathrooms;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return mBathrooms.size();
+        if(mBathrooms != null) {
+            return mBathrooms.size();
+        }
+        return 0;
     }
 
 
@@ -90,8 +97,8 @@ public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.Bathro
             });
         }
 
-        void bind(FirebaseUtils.BathroomLocation bathroomLocation) {
-            mBathroomTextView.setText(Double.toString(bathroomLocation.latitude));
+        void bind(int i) {
+            mBathroomTextView.setText("Bathroom "+i);
         }
     }
 

@@ -44,7 +44,7 @@ public class FirebaseUtils {
 
     public ArrayList<BathroomLocation> bathrooms;
 
-    public void change () {
+    public void change (final BathroomAdapter bathroomAdapter) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("");
 
@@ -54,7 +54,7 @@ public class FirebaseUtils {
                 // Get Post object and use the values to update the UI
                 Bathrooms list = dataSnapshot.getValue(Bathrooms.class);
                 Log.d("latLong ", " "+ list.Bathrooms.get(1).avg_review);
-                bathrooms = list.Bathrooms;
+                bathroomAdapter.updateBathrooms(list.Bathrooms);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

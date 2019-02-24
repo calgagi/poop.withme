@@ -39,14 +39,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_main);
         firebaseUtils = new FirebaseUtils();
         FirebaseApp.initializeApp(this);
-        firebaseUtils.change();
 
         mainBathroomRecyclerView = findViewById(R.id.bathroom_rv);
-        mainBathroomAdapter = new BathroomAdapter(this, firebaseUtils.bathrooms);
-
+        mainBathroomAdapter = new BathroomAdapter(this);
         mainBathroomRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mainBathroomRecyclerView.setHasFixedSize(true);
         mainBathroomRecyclerView.setAdapter(mainBathroomAdapter);
+        firebaseUtils.change(mainBathroomAdapter);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
