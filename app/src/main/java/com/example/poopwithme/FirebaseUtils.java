@@ -6,6 +6,11 @@ import java.util.List;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,8 +24,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.content.ContentValues.TAG;
+import static com.example.poopwithme.AmenitiesUtils.getLocations;
 
 public class FirebaseUtils {
+
+    public interface OnDatabaseFetchDone {
+        void updateMap(ArrayList<BathroomLocation> l);
+        void updateBathrooms(ArrayList<BathroomLocation> l);
+    }
+
+    private OnDatabaseFetchDone mOnDatabaseFetchDone;
+
+
     public static class BathroomLocation implements Serializable {
         public double longitude;
         public double latitude;
@@ -32,19 +47,13 @@ public class FirebaseUtils {
         ArrayList<BathroomLocation> Bathrooms;
     }
 
-    public FirebaseUtils(){
-        bathrooms = new ArrayList<BathroomLocation>();
-        BathroomLocation temp = new BathroomLocation();
-        temp.latitude = 100;
-        temp.longitude = 50;
-        temp.num_reviews = 2;
-        temp.avg_review = 3;
-        bathrooms.add(temp);
+    public FirebaseUtils(OnDatabaseFetchDone onDatabaseFetchDone) {
+        mOnDatabaseFetchDone = onDatabaseFetchDone;
     }
 
     public ArrayList<BathroomLocation> bathrooms;
 
-    public void change (final BathroomAdapter bathroomAdapter) {
+    public void change () {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("");
 
@@ -54,7 +63,9 @@ public class FirebaseUtils {
                 // Get Post object and use the values to update the UI
                 Bathrooms list = dataSnapshot.getValue(Bathrooms.class);
                 Log.d("latLong ", " "+ list.Bathrooms.get(1).avg_review);
-                bathroomAdapter.updateBathrooms(list.Bathrooms);
+                mOnDatabaseFetchDone.updateBathrooms(list.Bathrooms);
+                mOnDatabaseFetchDone.updateMap(list.Bathrooms);
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

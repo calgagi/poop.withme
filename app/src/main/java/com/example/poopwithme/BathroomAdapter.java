@@ -15,13 +15,12 @@ import java.util.List;
  */
 
 public class BathroomAdapter extends RecyclerView.Adapter<BathroomAdapter.BathroomViewHolder> {
-    private ArrayList<FirebaseUtils.BathroomLocation> mBathrooms = null;
+    public ArrayList<FirebaseUtils.BathroomLocation> mBathrooms = null;
     private OnBathroomClickedListener mBathroomClickedListener;
-
 
     public interface OnBathroomClickedListener {
         void onBathroomReviewClicked(FirebaseUtils.BathroomLocation temp);
-        void onBathroomDirectionClicked(double lattitude, double longitude);
+        void onBathroomDirectionClicked(double latitude, double longitude);
     }
 
     @Override
